@@ -1,0 +1,8 @@
+bin/
+obj/
+tools/
+*.log
+*.pdb
+*.obj
+*.exe
+__pycache__/
