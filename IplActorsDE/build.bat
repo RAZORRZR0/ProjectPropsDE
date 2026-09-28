@@ -23,7 +23,7 @@ if not defined DevEnvDir (
 set "MH=minhook"
 if not exist "bin" mkdir "bin"
 if not exist "obj" mkdir "obj"
-cl.exe /nologo /O2 /W3 /MD /EHsc /std:c++20 /D_CRT_SECURE_NO_WARNINGS /Fo:obj\ ^
+cl.exe /nologo /O2 /W3 /MT /EHsc /std:c++20 /D_CRT_SECURE_NO_WARNINGS /Fo:obj\ ^
     src\main.cpp %MH%\buffer.c %MH%\hook.c %MH%\trampoline.c %MH%\hde\hde64.c ^
     /link /DLL /OUT:bin\IplActorsDE.asi
 if errorlevel 1 (
