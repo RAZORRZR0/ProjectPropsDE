@@ -21,6 +21,9 @@ MODS = os.path.join("modloader", "Project Props 4", "Project Props 4")
 LOADERS = ["Stock Props", "Community Maps"]  # the mod's default set, in its loader.txt order
 NUM = re.compile(r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
 MAX_INST = 4096  # CFileLoader::LoadScene keeps one IPL's instances in a 4096-entry stack array
+# Models DE draws wrong when placed at runtime. 646 veg_palmkb14: no DE asset of its own and never placed by DE;
+# it shows a big bush hovering ~1.4 m up (classic pivot is the pot's centre). Add ids here as they are reported.
+SKIP = {646}
 
 
 def run(*a):
@@ -56,7 +59,7 @@ def inst_lines(path, stock):
             sec = None
         elif sec == "inst":
             nums = NUM.findall(" ".join(t[2:]))  # interior, x y z, qx qy qz qw, lod ("-0.92-1" typos split here)
-            if not t[0].isdigit() or int(t[0]) not in stock or len(nums) < 8:
+            if not t[0].isdigit() or int(t[0]) not in stock or int(t[0]) in SKIP or len(nums) < 8:
                 dropped += 1
                 continue
             out.append(f"{t[0]}, {t[1]}, {int(float(nums[0]))}, {', '.join(nums[1:8])}, -1")
